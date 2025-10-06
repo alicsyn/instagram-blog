@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +9,53 @@
 
   <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <!-- 修复文本方向问题 -->
+  <style>
+    /* 强制所有文本从左到右 */
+    * {
+      direction: ltr !important;
+      text-align: left !important;
+    }
+
+    /* 修复 Markdown 编辑器 */
+    .nc-controlPane-widget,
+    .nc-controlPane-widget textarea,
+    .nc-controlPane-widget .CodeMirror,
+    .nc-controlPane-widget .CodeMirror-line,
+    .nc-controlPane-widget input,
+    .nc-widgetMarkdown,
+    .nc-widgetMarkdown textarea,
+    .nc-widgetMarkdown .CodeMirror,
+    .nc-widgetMarkdown .CodeMirror-line,
+    .nc-widgetMarkdown .CodeMirror-code,
+    .nc-widgetMarkdown pre,
+    .CodeMirror,
+    .CodeMirror-line,
+    .CodeMirror-code,
+    .CodeMirror-scroll,
+    textarea {
+      direction: ltr !important;
+      text-align: left !important;
+      unicode-bidi: embed !important;
+    }
+
+    /* 修复输入框 */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea {
+      direction: ltr !important;
+      text-align: left !important;
+    }
+
+    /* 确保预览区域也是从左到右 */
+    .nc-previewPane,
+    .nc-previewPane * {
+      direction: ltr !important;
+      text-align: left !important;
+    }
+  </style>
 </head>
 <body>
   <!-- Netlify CMS -->
