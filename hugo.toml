@@ -1,6 +1,6 @@
 baseURL = 'https://lightcyan-lark-256774.hostingersite.com/'
 languageCode = 'zh-cn'
-title = 'Instagram 风格博客'
+title = 'Alice 博客'
 theme = 'instagram'
 
 # 分页设置
@@ -13,8 +13,8 @@ enableEmoji = true
 enableGitInfo = true
 
 [params]
-  description = "一个充满创意的 Instagram 风格个人博客"
-  author = "博主名字"
+  description = "欢迎来到 Alice 博客"
+  author = "Alice"
   avatar = "/images/avatar.jpg"
 
   # Instagram 风格配色

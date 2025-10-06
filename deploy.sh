@@ -78,8 +78,7 @@ if [ -d "$PROD_DIR" ] && [ "$(ls -A $PROD_DIR 2>/dev/null)" ]; then
         log "备份文件: $BACKUP_FILE"
         
         # 只保留最近 5 个备份
-        cd "$BACKUP_DIR"
-        ls -t backup_*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm
+        (cd "$BACKUP_DIR" && ls -t backup_*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm)
         print_message "$YELLOW" "🗑️  清理旧备份，保留最近 5 个"
     fi
 fi
