@@ -1,0 +1,96 @@
+baseURL = 'https://lightcyan-lark-256774.hostingersite.com/'
+languageCode = 'zh-cn'
+title = 'Instagram 风格博客'
+theme = 'instagram'
+
+# 分页设置
+paginate = 12
+
+# 启用 emoji
+enableEmoji = true
+
+# 启用 Git 信息
+enableGitInfo = true
+
+[params]
+  description = "一个充满创意的 Instagram 风格个人博客"
+  author = "博主名字"
+  avatar = "/images/avatar.jpg"
+
+  # Instagram 风格配色
+  [params.colors]
+    primary = "#0095f6"
+    background = "#fafafa"
+    text = "#262626"
+    border = "#dbdbdb"
+    gray = "#8e8e8e"
+
+  # 社交链接
+  [[params.social]]
+    name = "GitHub"
+    icon = "github"
+    url = "https://github.com/yourusername"
+
+  [[params.social]]
+    name = "Email"
+    icon = "email"
+    url = "mailto:your@email.com"
+
+  [[params.social]]
+    name = "Twitter"
+    icon = "twitter"
+    url = "https://twitter.com/yourusername"
+
+# 菜单配置
+[menu]
+  [[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    name = "文章"
+    url = "/posts/"
+    weight = 2
+
+  [[menu.main]]
+    name = "讨论区"
+    url = "/discussions/"
+    weight = 3
+
+  [[menu.main]]
+    name = "关于"
+    url = "/about/"
+    weight = 4
+
+# Markdown 配置
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "monokai"
+    lineNos = true
+    lineNumbersInTable = true
+
+# 输出格式
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+
+# 隐私设置
+[privacy]
+  [privacy.disqus]
+    disable = true
+  [privacy.googleAnalytics]
+    disable = true
+
+# 图片处理
+[imaging]
+  quality = 85
+  resampleFilter = "Lanczos"
+
+# 缓存
+[caches]
+  [caches.getjson]
+    maxAge = "10m"

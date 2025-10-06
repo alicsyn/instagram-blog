@@ -1,0 +1,65 @@
+{{ define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end }}
+
+{{ define "head" }}
+<!-- Giscus 评论系统样式 -->
+<style>
+  .giscus {
+    width: 100%;
+  }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="discussions-page">
+    <!-- Header -->
+    <div class="discussions-header">
+        <h1 class="discussions-title">{{ .Title }}</h1>
+        <div class="discussions-description">
+            {{ .Content }}
+        </div>
+    </div>
+    
+    <!-- Giscus 评论区 -->
+    <div class="discussions-container">
+        <script src="https://giscus.app/client.js"
+                data-repo="yourusername/your-repo"
+                data-repo-id="YOUR_REPO_ID"
+                data-category="General"
+                data-category-id="YOUR_CATEGORY_ID"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+        </script>
+        
+        <!-- 如果还没有配置 Giscus，显示提示信息 -->
+        <noscript>
+            <div style="padding: 40px; text-align: center; color: var(--ig-gray);">
+                <p>💡 讨论区功能需要启用 JavaScript</p>
+                <p style="margin-top: 12px; font-size: 14px;">
+                    请在浏览器设置中启用 JavaScript 以使用评论功能
+                </p>
+            </div>
+        </noscript>
+        
+        <div style="margin-top: 40px; padding: 24px; background: var(--ig-bg); border-radius: var(--radius-lg); text-align: center;">
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">
+                📝 如何配置 Giscus 评论系统
+            </h3>
+            <p style="color: var(--ig-gray); font-size: 14px; line-height: 1.6;">
+                1. 访问 <a href="https://giscus.app/zh-CN" target="_blank" rel="noopener" style="color: var(--ig-blue);">giscus.app</a><br>
+                2. 在 GitHub 创建公开仓库并启用 Discussions<br>
+                3. 获取配置代码并替换上面的参数<br>
+                4. 详细步骤请查看 <a href="/about/" style="color: var(--ig-blue);">关于页面</a>
+            </p>
+        </div>
+    </div>
+</div>
+{{ end }}
+

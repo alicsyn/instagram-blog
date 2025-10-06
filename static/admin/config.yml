@@ -1,0 +1,98 @@
+# Netlify CMS 配置文件
+
+# 后端配置
+backend:
+  name: git-gateway
+  branch: main
+
+# 本地开发模式（可选）
+local_backend: true
+
+# 媒体文件配置
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+# 发布模式 - 支持草稿工作流
+publish_mode: editorial_workflow
+
+# 网站 URL
+site_url: https://lightcyan-lark-256774.hostingersite.com
+
+# 显示预览链接
+display_url: https://lightcyan-lark-256774.hostingersite.com
+
+# 中文界面
+locale: 'zh_Hans'
+
+# 集合配置
+collections:
+  # 博客文章
+  - name: "posts"
+    label: "博客文章"
+    label_singular: "文章"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    preview_path: "posts/{{slug}}"
+    fields:
+      - {label: "标题", name: "title", widget: "string", required: true}
+      - {label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "YYYY-MM-DD", time_format: "HH:mm", required: true}
+      - {label: "封面图片", name: "cover", widget: "image", required: false, hint: "建议尺寸: 1200x1200 (方形)"}
+      - {label: "摘要", name: "description", widget: "text", required: false, hint: "简短描述文章内容，用于 SEO 和文章列表"}
+      - {label: "标签", name: "tags", widget: "list", required: false, hint: "添加相关标签"}
+      - {label: "分类", name: "categories", widget: "list", required: false, hint: "文章分类"}
+      - {label: "草稿", name: "draft", widget: "boolean", default: false, required: false}
+      - {label: "内容", name: "body", widget: "markdown", required: true}
+  
+  # 页面
+  - name: "pages"
+    label: "页面"
+    label_singular: "页面"
+    folder: "content"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "{{slug}}"
+    fields:
+      - {label: "标题", name: "title", widget: "string", required: true}
+      - {label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false}
+      - {label: "内容", name: "body", widget: "markdown", required: true}
+  
+  # 网站设置
+  - name: "settings"
+    label: "网站设置"
+    files:
+      - label: "网站信息"
+        name: "site"
+        file: "data/site.yml"
+        fields:
+          - {label: "网站标题", name: "title", widget: "string"}
+          - {label: "网站描述", name: "description", widget: "text"}
+          - {label: "作者名称", name: "author", widget: "string"}
+          - {label: "作者头像", name: "avatar", widget: "image"}
+          - label: "社交链接"
+            name: "social"
+            widget: "list"
+            fields:
+              - {label: "平台名称", name: "name", widget: "string"}
+              - {label: "图标", name: "icon", widget: "select", options: ["github", "twitter", "email", "instagram", "linkedin"]}
+              - {label: "链接", name: "url", widget: "string"}
+
+# 编辑器配置
+editor:
+  preview: true
+
+# 媒体库配置
+media_library:
+  name: uploadcare
+  config:
+    publicKey: demopublickey
+    multiple: false
+    tabs: 'file url'
+    effects: 'crop, rotate, enhance, grayscale'
+    imageShrink: '2000x2000'
+    previewStep: true
+    clearable: true
+

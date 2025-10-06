@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>博客管理后台</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+</head>
+<body>
+  <!-- Netlify CMS -->
+  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  
+  <!-- 自定义预览样式 -->
+  <script>
+    CMS.registerPreviewStyle("/css/main.css");
+    
+    // 自定义预览模板（可选）
+    var PostPreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        var image = entry.getIn(['data', 'cover']);
+        var bg = this.props.getAsset(image);
+        
+        return h('div', {"className": "single-post"},
+          h('header', {"className": "single-post-header"},
+            h('h1', {"className": "single-post-title"}, entry.getIn(['data', 'title'])),
+            h('time', {"className": "single-post-date"}, 
+              entry.getIn(['data', 'date']) ? new Date(entry.getIn(['data', 'date'])).toLocaleDateString('zh-CN') : ''
+            )
+          ),
+          bg ? h('img', {src: bg.toString(), "className": "single-post-image"}) : null,
+          h('div', {"className": "single-post-content"}, this.props.widgetFor('body'))
+        );
+      }
+    });
+    
+    CMS.registerPreviewTemplate("posts", PostPreview);
+  </script>
+</body>
+</html>
+

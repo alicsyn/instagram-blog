@@ -1,0 +1,13 @@
+name = "Instagram"
+license = "MIT"
+licenselink = "https://github.com/yourusername/hugo-instagram-theme/blob/main/LICENSE"
+description = "A beautiful Instagram-style theme for Hugo"
+homepage = "https://github.com/yourusername/hugo-instagram-theme"
+tags = ["blog", "instagram", "responsive", "minimal", "clean"]
+features = ["responsive", "instagram-style", "grid-layout", "image-focused"]
+min_version = "0.121.0"
+
+[author]
+  name = "Your Name"
+  homepage = "https://yourwebsite.com"
+

@@ -1,0 +1,98 @@
+{{ define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+<div class="container">
+    <!-- Page Header -->
+    <div style="text-align: center; padding: 40px 0;">
+        <h1 style="font-size: 36px; font-weight: 700; margin-bottom: 12px;">
+            {{ .Title }}
+        </h1>
+        {{ if .Description }}
+        <p style="font-size: 18px; color: var(--ig-gray);">
+            {{ .Description }}
+        </p>
+        {{ end }}
+    </div>
+    
+    <!-- Posts Grid -->
+    <div class="posts-grid">
+        {{ range .Paginator.Pages }}
+        <article class="post-card">
+            <a href="{{ .Permalink }}">
+                <!-- Post Image -->
+                <div class="post-image">
+                    {{ if .Params.cover }}
+                    <img src="{{ .Params.cover }}" alt="{{ .Title }}">
+                    {{ else }}
+                    <img src="/images/default-cover.jpg" alt="{{ .Title }}">
+                    {{ end }}
+                </div>
+                
+                <!-- Post Info -->
+                <div class="post-info">
+                    <!-- Author & Date -->
+                    <div class="post-meta">
+                        <img src="{{ $.Site.Params.avatar }}" alt="{{ $.Site.Params.author }}" class="post-avatar">
+                        <span class="post-author">{{ $.Site.Params.author }}</span>
+                        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+                    </div>
+                    
+                    <!-- Title -->
+                    <h2 class="post-title">{{ .Title }}</h2>
+                    
+                    <!-- Excerpt -->
+                    {{ if .Description }}
+                    <p class="post-excerpt">{{ .Description }}</p>
+                    {{ else }}
+                    <p class="post-excerpt">{{ .Summary }}</p>
+                    {{ end }}
+                    
+                    <!-- Tags -->
+                    {{ if .Params.tags }}
+                    <div class="post-tags">
+                        {{ range first 3 .Params.tags }}
+                        <span class="tag">#{{ . }}</span>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                    
+                    <!-- Actions -->
+                    <div class="post-actions">
+                        <button class="action-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                            <span>喜欢</span>
+                        </button>
+                        <button class="action-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <span>阅读</span>
+                        </button>
+                    </div>
+                </div>
+            </a>
+        </article>
+        {{ end }}
+    </div>
+    
+    <!-- Pagination -->
+    {{ if gt .Paginator.TotalPages 1 }}
+    <div style="display: flex; justify-content: center; gap: 12px; margin-top: 40px;">
+        {{ if .Paginator.HasPrev }}
+        <a href="{{ .Paginator.Prev.URL }}" class="btn btn-secondary">← 上一页</a>
+        {{ end }}
+        
+        <span style="display: flex; align-items: center; color: var(--ig-gray); font-size: 14px;">
+            第 {{ .Paginator.PageNumber }} / {{ .Paginator.TotalPages }} 页
+        </span>
+        
+        {{ if .Paginator.HasNext }}
+        <a href="{{ .Paginator.Next.URL }}" class="btn btn-secondary">下一页 →</a>
+        {{ end }}
+    </div>
+    {{ end }}
+</div>
+{{ end }}
+
