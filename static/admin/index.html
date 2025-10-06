@@ -10,48 +10,107 @@
   <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-  <!-- 修复文本方向问题 -->
+  <!-- 修复文本方向问题 - 增强版 -->
   <style>
-    /* 强制所有文本从左到右 */
-    * {
+    /* 超级强制 LTR 方向 - 最高优先级 */
+    html,
+    html[dir],
+    html[dir="ltr"],
+    html[dir="rtl"],
+    body,
+    body *,
+    div,
+    div *,
+    span,
+    span *,
+    textarea,
+    textarea *,
+    input,
+    input *,
+    pre,
+    pre *,
+    code,
+    code * {
       direction: ltr !important;
       text-align: left !important;
+      unicode-bidi: normal !important;
     }
 
-    /* 修复 Markdown 编辑器 */
-    .nc-controlPane-widget,
-    .nc-controlPane-widget textarea,
-    .nc-controlPane-widget .CodeMirror,
-    .nc-controlPane-widget .CodeMirror-line,
-    .nc-controlPane-widget input,
-    .nc-widgetMarkdown,
-    .nc-widgetMarkdown textarea,
-    .nc-widgetMarkdown .CodeMirror,
-    .nc-widgetMarkdown .CodeMirror-line,
-    .nc-widgetMarkdown .CodeMirror-code,
-    .nc-widgetMarkdown pre,
+    /* 特别针对 CodeMirror 编辑器 */
     .CodeMirror,
+    .CodeMirror *,
     .CodeMirror-line,
+    .CodeMirror-line *,
     .CodeMirror-code,
+    .CodeMirror-code *,
     .CodeMirror-scroll,
-    textarea {
+    .CodeMirror-scroll *,
+    .CodeMirror-sizer,
+    .CodeMirror-sizer *,
+    .CodeMirror-lines,
+    .CodeMirror-lines *,
+    .CodeMirror-cursors,
+    .CodeMirror-cursors * {
       direction: ltr !important;
       text-align: left !important;
-      unicode-bidi: embed !important;
+      unicode-bidi: normal !important;
     }
 
-    /* 修复输入框 */
+    /* 修复 Netlify CMS 特定类 */
+    .nc-controlPane-widget,
+    .nc-controlPane-widget *,
+    .nc-widgetMarkdown,
+    .nc-widgetMarkdown *,
+    [class*="widget"],
+    [class*="widget"] *,
+    [class*="Widget"],
+    [class*="Widget"] *,
+    [class*="control"],
+    [class*="control"] *,
+    [class*="Control"],
+    [class*="Control"] *,
+    [class*="editor"],
+    [class*="editor"] *,
+    [class*="Editor"],
+    [class*="Editor"] * {
+      direction: ltr !important;
+      text-align: left !important;
+      unicode-bidi: normal !important;
+    }
+
+    /* 确保光标位置正确 */
+    .CodeMirror-cursor {
+      border-left: 1px solid black !important;
+      border-right: none !important;
+    }
+
+    /* 修复所有输入框 */
+    input,
     input[type="text"],
     input[type="email"],
     input[type="password"],
-    textarea {
+    input[type="search"],
+    textarea,
+    [contenteditable="true"],
+    [contenteditable] {
       direction: ltr !important;
       text-align: left !important;
+      unicode-bidi: normal !important;
     }
 
     /* 确保预览区域也是从左到右 */
     .nc-previewPane,
     .nc-previewPane * {
+      direction: ltr !important;
+      text-align: left !important;
+      unicode-bidi: normal !important;
+    }
+
+    /* 强制覆盖任何内联样式 */
+    [style*="direction"],
+    [style*="text-align"],
+    [dir="rtl"],
+    [dir="auto"] {
       direction: ltr !important;
       text-align: left !important;
     }
@@ -60,6 +119,115 @@
 <body>
   <!-- Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+  <!-- 强制修复文本方向 - JavaScript 版本 -->
+  <script>
+    (function() {
+      console.log('🔧 启动文本方向修复...');
+
+      // 强制修复函数
+      function forceFixDirection() {
+        try {
+          // 1. 修复 HTML 根元素
+          document.documentElement.setAttribute('dir', 'ltr');
+          document.documentElement.style.direction = 'ltr';
+          document.body.setAttribute('dir', 'ltr');
+          document.body.style.direction = 'ltr';
+
+          // 2. 修复所有 CodeMirror 实例
+          var codeMirrors = document.querySelectorAll('.CodeMirror');
+          codeMirrors.forEach(function(cm) {
+            cm.setAttribute('dir', 'ltr');
+            cm.style.direction = 'ltr';
+            cm.style.textAlign = 'left';
+            cm.style.unicodeBidi = 'normal';
+
+            // 修复内部元素
+            var lines = cm.querySelectorAll('.CodeMirror-line, .CodeMirror-code, .CodeMirror-scroll');
+            lines.forEach(function(line) {
+              line.setAttribute('dir', 'ltr');
+              line.style.direction = 'ltr';
+              line.style.unicodeBidi = 'normal';
+            });
+          });
+
+          // 3. 修复所有 textarea
+          var textareas = document.querySelectorAll('textarea');
+          textareas.forEach(function(ta) {
+            ta.setAttribute('dir', 'ltr');
+            ta.style.direction = 'ltr';
+            ta.style.textAlign = 'left';
+            ta.style.unicodeBidi = 'normal';
+          });
+
+          // 4. 修复所有输入框
+          var inputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="search"]');
+          inputs.forEach(function(input) {
+            input.setAttribute('dir', 'ltr');
+            input.style.direction = 'ltr';
+            input.style.textAlign = 'left';
+            input.style.unicodeBidi = 'normal';
+          });
+
+          // 5. 修复所有可编辑元素
+          var editables = document.querySelectorAll('[contenteditable="true"], [contenteditable]');
+          editables.forEach(function(el) {
+            el.setAttribute('dir', 'ltr');
+            el.style.direction = 'ltr';
+            el.style.textAlign = 'left';
+            el.style.unicodeBidi = 'normal';
+          });
+
+          // 6. 修复所有 widget 相关元素
+          var widgets = document.querySelectorAll('[class*="widget"], [class*="Widget"], [class*="control"], [class*="Control"], [class*="editor"], [class*="Editor"]');
+          widgets.forEach(function(widget) {
+            widget.setAttribute('dir', 'ltr');
+            widget.style.direction = 'ltr';
+          });
+
+        } catch (e) {
+          console.error('修复文本方向时出错:', e);
+        }
+      }
+
+      // 立即执行一次
+      setTimeout(forceFixDirection, 100);
+      setTimeout(forceFixDirection, 500);
+      setTimeout(forceFixDirection, 1000);
+      setTimeout(forceFixDirection, 2000);
+      setTimeout(forceFixDirection, 3000);
+
+      // 每秒检查一次（处理动态加载的元素）
+      setInterval(forceFixDirection, 1000);
+
+      // 监听 DOM 变化
+      if (typeof MutationObserver !== 'undefined') {
+        var observer = new MutationObserver(function(mutations) {
+          forceFixDirection();
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['dir', 'style', 'class']
+        });
+
+        console.log('✅ 文本方向修复已启动');
+      }
+
+      // 监听焦点事件
+      document.addEventListener('focusin', function(e) {
+        if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT' || e.target.isContentEditable) {
+          setTimeout(function() {
+            e.target.setAttribute('dir', 'ltr');
+            e.target.style.direction = 'ltr';
+            e.target.style.textAlign = 'left';
+          }, 10);
+        }
+      }, true);
+    })();
+  </script>
   
   <!-- 自定义预览样式 -->
   <script>
