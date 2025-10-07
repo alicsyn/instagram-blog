@@ -5,9 +5,6 @@ backend:
   name: git-gateway
   branch: main
 
-# 本地开发模式（可选）
-local_backend: true
-
 # 媒体文件配置
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
@@ -15,11 +12,11 @@ public_folder: "/images/uploads"
 # 发布模式 - 支持草稿工作流
 publish_mode: editorial_workflow
 
-# 网站 URL
-site_url: https://lightcyan-lark-256774.hostingersite.com
+# 网站 URL（使用 Netlify 站点，确保 Identity/Git Gateway 正常）
+site_url: https://rad-dasik-e25922.netlify.app
 
-# 显示预览链接
-display_url: https://lightcyan-lark-256774.hostingersite.com
+# 显示预览链接（与上保持一致）
+display_url: https://rad-dasik-e25922.netlify.app
 
 # 中文界面
 locale: 'zh_Hans'
