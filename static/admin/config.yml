@@ -2,8 +2,11 @@
 
 # 后端配置
 backend:
-  name: git-gateway
+  name: github
+  repo: alicsyn/instagram-blog
   branch: main
+  # 可选: 使用 GraphQL API（更快）
+  use_graphql: true
 
 # 媒体文件配置
 media_folder: "static/images/uploads"
@@ -81,15 +84,15 @@ collections:
 editor:
   preview: true
 
-# 媒体库配置
-media_library:
-  name: uploadcare
-  config:
-    publicKey: demopublickey
-    multiple: false
-    tabs: 'file url'
-    effects: 'crop, rotate, enhance, grayscale'
-    imageShrink: '2000x2000'
-    previewStep: true
-    clearable: true
+# 媒体库配置 - 使用默认的 Git LFS（更稳定）
+# media_library:
+#   name: uploadcare
+#   config:
+#     publicKey: demopublickey
+#     multiple: false
+#     tabs: 'file url'
+#     effects: 'crop, rotate, enhance, grayscale'
+#     imageShrink: '2000x2000'
+#     previewStep: true
+#     clearable: true
 
